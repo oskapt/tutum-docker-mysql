@@ -17,8 +17,8 @@ ADD mysqld_charset.cnf /etc/mysql/conf.d/mysqld_charset.cnf
 # Add MySQL scripts
 ADD create_mysql_admin_user.sh /create_mysql_admin_user.sh
 ADD import_sql.sh /import_sql.sh
-ADD run.sh /run.sh
-RUN chmod 755 /*.sh
+ADD start /start
+RUN chmod 755 /start /*.sh
 
 # Exposed ENV
 ENV MYSQL_USER admin
@@ -28,4 +28,4 @@ ENV MYSQL_PASS **Random**
 VOLUME  ["/etc/mysql", "/var/lib/mysql"]
 
 EXPOSE 3306
-CMD ["/run.sh"]
+CMD ["/start"]
