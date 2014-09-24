@@ -61,7 +61,7 @@ You can now test your deployment:
 
         mysql -uadmin -p"mypass"
 
-The admin username can also be set via the MYSQL_USER environment variable.
+The admin username can also be set via the `MYSQL_USER` environment variable.
 
 
 Mounting the database file volume
@@ -117,13 +117,27 @@ To import a SQL backup which is stored for example in the folder `/tmp` in the h
 Where `<user>` and `<pass>` are the database username and password set earlier and `<dump.sql>` is the name of the SQL file to be imported.
 
 
+Replication - Master/Slave
+-------------------------
+To use MySQL replication, please set environment variable `REPLICATION_MASTER`/`REPLICATION_SLAVE` to `ture`. Also, on master side, you may want to specify `REPLICATION_USER` and `REPLICATION_PASS` for the account to perform replication, the default value is `replica:replica`
+
+Examples:
+- Master MySQL
+- 
+        docker run -d -e REPLICATION_MASTER=true -e REPLICATION_PASS=mypass -p 3306:3306 --name mysql tutum/mysql
+
+- Example on Slave MySQL:
+- 
+        docker run -d -e REPLICATION_SLAVE=true -p 3307:3306 --link mysql:mysql tutum/mysql
+
+Now, you can access port `3306` and `3307` for the master/slave mysql
 Environment variables
 ---------------------
 
 `MYSQL_USER`: Set a specific username for the admin account (default 'admin')
 `MYSQL_PASS`: Set a specific password for the admin account.
 
-Compatibiliity Issues
+Compatibility Issues
 --------------------
 
 - Volume created by MySQL 5.6 cannot be used in MySQL 5.5 Images or MariaDB images

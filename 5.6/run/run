@@ -1,0 +1,19 @@
+#!/bin/bash
+
+CONTAINER="monachus/mysql"
+NAME="mysql"
+
+# Uncomment this to background the container
+DAEMON="-d"
+#DAEMON="-i -t"
+
+#RUN="/bin/bash"
+# File sharing proxy port
+#PORTS="-p 3306:3306"
+
+MOUNTS="-v $(pwd)/mysql_var:/var/lib/mysql"
+
+WEAVE_IP="10.68.5.4/24"
+
+# docker run --name $NAME $DAEMON $PORTS $MOUNTS $CONTAINER $RUN
+/usr/local/bin/weave run $WEAVE_IP --name $NAME $DAEMON $PORTS $MOUNTS $CONTAINER $RUN
